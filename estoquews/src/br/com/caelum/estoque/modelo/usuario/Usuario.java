@@ -13,15 +13,15 @@ public class Usuario {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public String getLogin() {
-		return login;
+		return this.login;
 	}
 
 	public String getSenha() {
-		return senha;
+		return this.senha;
 	}
 	
 	public static class Builder {

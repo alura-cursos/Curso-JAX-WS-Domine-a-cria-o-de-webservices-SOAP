@@ -11,6 +11,7 @@ import br.com.caelum.estoque.modelo.item.Filtro;
 import br.com.caelum.estoque.modelo.item.Filtros;
 import br.com.caelum.estoque.modelo.item.Item;
 import br.com.caelum.estoque.modelo.item.ItemDao;
+import br.com.caelum.estoque.modelo.item.ItemValidador;
 import br.com.caelum.estoque.modelo.item.ListaItens;
 import br.com.caelum.estoque.modelo.usuario.AutorizacaoException;
 import br.com.caelum.estoque.modelo.usuario.TokenDao;
@@ -43,7 +44,10 @@ public class EstoqueWS {
 			throw new AutorizacaoException("Token invalido");
 		}
 
+		new ItemValidador(item).validate();
+		
 		this.dao.cadastrar(item);
+		
 		return item;
 	}
 }
