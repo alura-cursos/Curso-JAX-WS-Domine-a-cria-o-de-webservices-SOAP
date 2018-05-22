@@ -2,12 +2,18 @@ package br.com.caelum.estoque.modelo.usuario;
 
 import java.util.Date;
 
-public class TokenUsuario {
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+public class TokenUsuario {
+	@XmlElement(required = true)
 	private String token;
+
+	@XmlJavaTypeAdapter(DateAdapter.class)
+	@XmlElement(required = true)
 	private Date dataValidade;
-	
-	//JAX-B precisa desse construtor
+
+	// JAX-B precisa desse construtor
 	TokenUsuario() {
 	}
 
@@ -31,7 +37,6 @@ public class TokenUsuario {
 	public void setDataValidade(Date dataValidade) {
 		this.dataValidade = dataValidade;
 	}
-	
 
 	@Override
 	public int hashCode() {
