@@ -1,0 +1,159 @@
+<?xml version="1.0" ?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://ws.estoque.caelum.com.br/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="EstoqueWS" targetNamespace="http://ws.estoque.caelum.com.br/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.estoque.caelum.com.br/" targetNamespace="http://ws.estoque.caelum.com.br/" version="1.0">
+
+  <xs:element name="AutorizacaoFault" type="xs:string"></xs:element>
+
+  <xs:element name="CadastrarItem" type="tns:CadastrarItem"></xs:element>
+
+  <xs:element name="CadastrarItemResponse" type="tns:CadastrarItemResponse"></xs:element>
+
+  <xs:element name="TodosOsItens" type="tns:TodosOsItens"></xs:element>
+
+  <xs:element name="TodosOsItensResponse" type="tns:TodosOsItensResponse"></xs:element>
+
+  <xs:element name="filtros" type="tns:filtros"></xs:element>
+
+  <xs:element name="listaItens" type="tns:listaItens"></xs:element>
+
+  <xs:element name="tokenUsuario" type="tns:tokenUsuario"></xs:element>
+
+  <xs:complexType name="TodosOsItens">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="filtros" type="tns:filtros"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="filtros">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="filtro" nillable="true" type="tns:filtro"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="filtro">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nome" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="tipo" type="tns:tipoItem"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TodosOsItensResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="itens" type="tns:listaItens"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="listaItens">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="item" nillable="true" type="tns:item"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="item">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="nome" type="xs:string"></xs:element>
+      <xs:element name="quantidade" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="tipo" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CadastrarItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="item" type="tns:item"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tokenUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dataValidade" type="xs:dateTime"></xs:element>
+      <xs:element minOccurs="0" name="token" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CadastrarItemResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="item" type="tns:item"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="tipoItem">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Livro"></xs:enumeration>
+      <xs:enumeration value="Celular"></xs:enumeration>
+      <xs:enumeration value="Tablet"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="CadastrarItemResponse">
+    <wsdl:part element="tns:CadastrarItemResponse" name="result">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TodosOsItensResponse">
+    <wsdl:part element="tns:TodosOsItensResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CadastrarItem">
+    <wsdl:part element="tns:CadastrarItem" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:tokenUsuario" name="tokenUsuario">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AutorizacaoFault">
+    <wsdl:part element="tns:AutorizacaoFault" name="AutorizacaoFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TodosOsItens">
+    <wsdl:part element="tns:TodosOsItens" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EstoqueWS">
+    <wsdl:operation name="TodosOsItens">
+      <wsdl:input message="tns:TodosOsItens" name="TodosOsItens" wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/TodosOsItensRequest" wsaw:Action="http://ws.estoque.caelum.com.br/EstoqueWS/TodosOsItensRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:TodosOsItensResponse" name="TodosOsItensResponse" wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/TodosOsItensResponse" wsaw:Action="http://ws.estoque.caelum.com.br/EstoqueWS/TodosOsItensResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarItem">
+      <wsdl:input message="tns:CadastrarItem" name="CadastrarItem" wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/CadastrarItemRequest" wsaw:Action="http://ws.estoque.caelum.com.br/EstoqueWS/CadastrarItemRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:CadastrarItemResponse" name="CadastrarItemResponse" wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/CadastrarItemResponse" wsaw:Action="http://ws.estoque.caelum.com.br/EstoqueWS/CadastrarItemResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:AutorizacaoFault" name="AutorizacaoFault" wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/CadastrarItem/Fault/AutorizacaoException" wsaw:Action="http://ws.estoque.caelum.com.br/EstoqueWS/CadastrarItem/Fault/AutorizacaoException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EstoqueWSSoapBinding" type="tns:EstoqueWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="TodosOsItens">
+      <soap:operation soapAction="http://ws.estoque.caelum.com.br/EstoqueWS/TodosOsItensRequest" style="document"></soap:operation>
+      <wsdl:input name="TodosOsItens">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="TodosOsItensResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarItem">
+      <soap:operation soapAction="http://ws.estoque.caelum.com.br/EstoqueWS/CadastrarItemRequest" style="document"></soap:operation>
+      <wsdl:input name="CadastrarItem">
+        <soap:header message="tns:CadastrarItem" part="tokenUsuario" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="CadastrarItemResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="AutorizacaoFault">
+        <soap:fault name="AutorizacaoFault" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EstoqueWS">
+    <wsdl:port binding="tns:EstoqueWSSoapBinding" name="EstoqueWSPort">
+      <soap:address location="http://localhost:8080/estoquews-web/EstoqueWS"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
